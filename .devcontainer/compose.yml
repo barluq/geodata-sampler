@@ -1,0 +1,16 @@
+# Docker Compose file for GIS-Data development environment
+# This file defines the services required for the GIS-Data application development.
+
+# Info: Ports are not exposed here
+# Check devcontainer.json for port forwarding settings
+
+services:
+  devcontainer:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ../..:/workspaces:cached
+    container_name: geodata_sampler_devcon
+    command: sleep infinity
+    restart: unless-stopped

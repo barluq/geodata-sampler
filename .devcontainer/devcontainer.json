@@ -1,0 +1,39 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
+{
+	"name": "Geodata Sampler Dev Container",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	// "image": "mcr.microsoft.com/devcontainers/base:noble",
+	"features": {
+		"ghcr.io/devcontainers/features/python:1": {
+			"version": "3.13"
+		},
+		"ghcr.io/devcontainers-extra/features/pipenv:2": {
+			"version": "latest"
+		}
+	},
+	
+	// Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	// compose file for the dev container
+	"dockerComposeFile": [
+		"compose.yml"
+	],
+	
+	// name of the service in the docker-compose file to use as the dev container
+	"service": "devcontainer",
+	
+	// folder inside the container where the workspace is mounted
+	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+	
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "pipenv install --dev"
+	
+	// Configure tool-specific properties.
+	// "customizations": {},
+	
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}

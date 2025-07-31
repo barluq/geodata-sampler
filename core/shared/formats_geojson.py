@@ -28,7 +28,8 @@ def geojson_feature_collection_body(features: list) -> dict:
 def geojson_features_generator(
         number_of_features: int, 
         attributes: dict[str, Literal["string", "integer", "float"]],
-        year_range: tuple[int, int] | None
+        timeseries_attributes: dict[str, Literal["string", "integer", "float"]] | None = None,
+        year_range: tuple[int, int] | None = None
         ) -> Generator[dict, None, None]:
     
     """
@@ -75,16 +76,23 @@ def geojson_features_generator(
         Note:
             This function relies on the variables 'attributes' and 'year_range' being defined in the enclosing scope.
         """
-        if year_range is None:
-            return {
-                "fid": fid,
-                **random_properties_set(attributes=attributes),
+        
+        features_result: dict = {
+            "fid": fid,
+            **random_properties_set(attributes=attributes)
             }
-        else:
-            return {
-                "fid": fid,
-                **random_properties_set_per_year(year_range=year_range, attributes=attributes),
+
+        # If year_range and timeseries_attributes are provided, generate properties for each year in the range
+        if year_range is not None and timeseries_attributes is not None:
+            features_result = {
+                **features_result,
+                **random_properties_set_per_year(
+                    attributes=timeseries_attributes,
+                    year_range=year_range
+                )
             }
+
+        return features_result
 
     for i in range(number_of_features):
         yield {

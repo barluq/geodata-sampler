@@ -22,7 +22,7 @@ def store_geojson_to_generated_folder(
     # Ensure the output directory exists
     folder_path.mkdir(parents=True, exist_ok=True)
 
-    # Write the GeoJSON to a file
+    # Write the GeoJSON to a file (this will overwrite if file exists)
     output_path = folder_path / filename
     with open(output_path, 'w') as f:
         json.dump(geojson_data, f, indent=2)

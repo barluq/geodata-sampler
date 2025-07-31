@@ -30,8 +30,8 @@ ENV CPLUS_INCLUDE_PATH=/usr/include/gdal
 ENV C_INCLUDE_PATH=/usr/include/gdal
 
 # Set python environment variables
-# ENV PYTHONUNBUFFERED=1
-# ENV PYTHONPATH=./src
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONPATH=./core
 
 # Install common development tools
 RUN curl -fsSL https://get.docker.com | sh

@@ -1,12 +1,19 @@
 
-from core.shared.randoms import random_point_coordinates
+from core.shared.spatial_randoms import random_point_coordinates, random_properties_set
 
-def geojson_feature_collection_body(features):
+
+def geojson_feature_collection_body(features: list) -> dict:
     return {
         "type": "FeatureCollection",
-        "crs": "urn:ogc:def:crs:OGC:1.3:CRS84",
-        "features": {**features},
+        "crs": {
+            "type": "name",
+            "properties": {
+                "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+            }
+        },
+        "features": features,
     }
+
 
 def geojson_features_generator(number_of_features: int = 1):
 
@@ -16,21 +23,16 @@ def geojson_features_generator(number_of_features: int = 1):
             "coordinates": coordinates
         }
 
-    def geojson_property(fid: int, name: str) -> dict:
+    def geojson_properties(fid: int) -> dict:
         return {
             "fid": fid,
-            "name": name,
+            **random_properties_set(year_range=(2000, 2023)),
         }
 
     for i in range(number_of_features):
 
-        properties = geojson_property(
-            fid=i,
-            name=f"Point {i}"
-        )
-
         yield {
             "type": "Feature",
             "geometry": geojson_point_geometry(random_point_coordinates()),
-            "properties": {**properties}
+            "properties": geojson_properties(fid=i)
         }

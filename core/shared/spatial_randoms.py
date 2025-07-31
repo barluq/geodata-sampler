@@ -1,7 +1,7 @@
 import random
 from typing import Literal
 
-from shared.value_randoms import random_float, random_integer, random_string
+from core.shared.value_randoms import random_float, random_integer, random_string
 
 def random_point_coordinates() -> tuple[float, float]:
     """Generate random coordinates for a point."""

@@ -1,5 +1,4 @@
 
-
 import random
 
 def random_float(negative: bool = False) -> float:

@@ -6,6 +6,10 @@ __pycache__/
 # C extensions
 *.so
 
+/data/generated/*
+!/data/generated/.gitkeep
+!/data/fixtures/
+
 # Distribution / packaging
 .Python
 build/

@@ -1,7 +1,27 @@
 import json
 from pathlib import Path
 
-def store_geojson_to_generated_folder(
+def read_geojson_from_file(file_path: Path) -> dict:
+    """
+    Reads GeoJSON data from a file and returns it as a dictionary.
+
+    Args:
+        file_path (Path): The path to the GeoJSON file.
+
+    Returns:
+        dict: The GeoJSON data as a dictionary.
+
+    Raises:
+        FileNotFoundError: If the specified file does not exist.
+        json.JSONDecodeError: If the file content is not valid JSON.
+    """
+    if not file_path.exists():
+        raise FileNotFoundError(f"The file {file_path} does not exist.")
+
+    with open(file_path, 'r') as file:
+        return json.load(file)
+
+def write_geojson_to_generated_folder(
     geojson_data: dict,
     folder_path: Path,
     filename: str,
@@ -24,5 +44,5 @@ def store_geojson_to_generated_folder(
 
     # Write the GeoJSON to a file (this will overwrite if file exists)
     output_path = folder_path / filename
-    with open(output_path, 'w') as f:
-        json.dump(geojson_data, f, indent=2)
+    with open(output_path, 'w') as file:
+        json.dump(geojson_data, file, indent=2)

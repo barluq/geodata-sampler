@@ -7,6 +7,13 @@ class VectorEntityStats():
     features_count: int
     properties_per_feature_count: int
 
+    def print_stats_to_console(self) -> None:
+        """
+        Prints the statistics of the vector entity to the console.
+        """
+        print(f"VectorEntityStats(features_count={self.features_count}, "
+              f"properties_per_feature_count={self.properties_per_feature_count})")
+
     @staticmethod
     def from_vector_entity(vector_entity: VectorEntity) -> "VectorEntityStats":
         """

@@ -1,6 +1,7 @@
 
 from typing import Generator, Literal
 from core.shared.spatial_randoms import random_point_coordinates, random_properties_set, random_properties_set_per_year
+from shared.helpers_datetime import DatePeriod
 
 
 def geojson_feature_collection_body(features: list) -> dict:
@@ -29,7 +30,8 @@ def geojson_features_generator(
         number_of_features: int, 
         attributes: dict[str, Literal["string", "integer", "float"]],
         timeseries_attributes: dict[str, Literal["string", "integer", "float"]] | None = None,
-        year_range: tuple[int, int] | None = None
+        timeseries_step: DatePeriod | None = None,
+        time_series_range: tuple[str, str] | None = None
         ) -> Generator[dict, None, None]:
     
     """
@@ -83,12 +85,13 @@ def geojson_features_generator(
             }
 
         # If year_range and timeseries_attributes are provided, generate properties for each year in the range
-        if year_range is not None and timeseries_attributes is not None:
+        if time_series_range is not None and timeseries_attributes is not None and timeseries_step is not None:
             features_result = {
                 **features_result,
                 **random_properties_set_per_year(
                     attributes=timeseries_attributes,
-                    year_range=year_range
+                    timeseries_range=time_series_range,
+                    period_step=timeseries_step
                 )
             }
 

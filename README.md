@@ -12,3 +12,5 @@ Generates sample data with spatial context for future testing.
 Also possible to run as Docker DevContainer or with VSCode Jupyter and Python extensions.
 
 Info: To setup jupyter kernel in dev container: `python -m ipykernel install --user --name=geodata-sampler-env --display-name="Python (geodata-sampler)"`
+
+python -m ipykernel install --user --name=geodata-sampler

@@ -2,8 +2,8 @@ from datetime import datetime
 import random
 from typing import Literal
 
-from core.shared.value_randoms import random_float, random_integer, random_string
-from shared.helpers_datetime import DatePeriod, time_step_by_period_sec
+from .value_randoms import random_float, random_integer, random_string
+from .helpers_datetime import DatePeriod
 
 def random_point_coordinates() -> tuple[float, float]:
     """Generate random coordinates for a point."""
@@ -40,7 +40,7 @@ def random_properties_set(attributes: dict[str, Literal["string", "integer", "fl
     return result
 
 
-def random_properties_set_per_year(
+def random_properties_set_per_period(
         timeseries_range: tuple[str, str], 
         period_step: DatePeriod,
         attributes: dict[str, Literal["string", "integer", "float"]]
@@ -59,14 +59,14 @@ def random_properties_set_per_year(
     """
     result: dict = {}
 
-    start_timestamp = int(datetime.fromisoformat(timeseries_range[0]).timestamp())
-    end_timestamp = int(datetime.fromisoformat(timeseries_range[1]).timestamp())
+    start_timestamp_sec = datetime.fromisoformat(timeseries_range[0]).timestamp()
+    end_timestamp_sec = datetime.fromisoformat(timeseries_range[1]).timestamp()
 
-    while start_timestamp < end_timestamp:
+    while start_timestamp_sec < end_timestamp_sec:
         
         # generate attributes with timeseries for the step
         for key, value in attributes.items():
-            attribute_name = f"{key}_{datetime.fromtimestamp(start_timestamp).isoformat()}"
+            attribute_name = f"{key}_{datetime.fromtimestamp(start_timestamp_sec).isoformat()}"
             if value == "integer":
                 result[attribute_name] = random_integer()
             elif value == "float":
@@ -76,10 +76,7 @@ def random_properties_set_per_year(
             else:
                 result[attribute_name] = "unknown"
 
-        # define step size
-        step = time_step_by_period_sec(period_step)
-
         # make the step in time on time series axis
-        start_timestamp += step
+        start_timestamp_sec += period_step.value
 
     return result

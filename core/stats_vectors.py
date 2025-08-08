@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from core.shared.models_vectors import VectorEntity, VectorEntityFeature
+from .models_vectors import VectorEntity, VectorEntityFeature
 
 
 @dataclass

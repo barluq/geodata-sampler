@@ -1,7 +1,7 @@
 
 from typing import Generator, Literal
-from core.shared.spatial_randoms import random_point_coordinates, random_properties_set, random_properties_set_per_year
-from shared.helpers_datetime import DatePeriod
+from .spatial_randoms import random_point_coordinates, random_properties_set, random_properties_set_per_period
+from .helpers_datetime import DatePeriod
 
 
 def geojson_feature_collection_body(features: list) -> dict:
@@ -88,7 +88,7 @@ def geojson_features_generator(
         if time_series_range is not None and timeseries_attributes is not None and timeseries_step is not None:
             features_result = {
                 **features_result,
-                **random_properties_set_per_year(
+                **random_properties_set_per_period(
                     attributes=timeseries_attributes,
                     timeseries_range=time_series_range,
                     period_step=timeseries_step

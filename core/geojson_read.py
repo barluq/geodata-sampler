@@ -1,4 +1,4 @@
-from core.shared.models_vectors import VectorEntity, VectorEntityFeature
+from .models_vectors import VectorEntity, VectorEntityFeature
 
 def parse_geojson(geojson_data: dict) -> VectorEntity:
     """

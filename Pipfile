@@ -9,6 +9,7 @@ ipykernel = "*"
 geopandas = "*"
 pyarrow = "*"
 shapely = "*"
+numpy = "*"
 
 [dev-packages]
 pytest = "*"

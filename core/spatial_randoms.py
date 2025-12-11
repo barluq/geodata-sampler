@@ -43,7 +43,8 @@ def random_properties_set(attributes: dict[str, Literal["string", "integer", "fl
 def random_properties_set_per_period(
         timeseries_range: tuple[str, str], 
         period_step: DatePeriod,
-        attributes: dict[str, Literal["string", "integer", "float"]]
+        attributes: dict[str, Literal["string", "integer", "float"]],
+        timeseries_divider: str = "_:_"
         ) -> dict[str, int | float | str]:
     """
     Generates a dictionary of random property values for each year in a given range.
@@ -66,7 +67,7 @@ def random_properties_set_per_period(
         
         # generate attributes with timeseries for the step
         for key, value in attributes.items():
-            attribute_name = f"{key}_{datetime.fromtimestamp(start_timestamp_sec).isoformat()}"
+            attribute_name = f"{key}{timeseries_divider}{datetime.fromtimestamp(start_timestamp_sec).isoformat()}"
             if value == "integer":
                 result[attribute_name] = random_integer()
             elif value == "float":

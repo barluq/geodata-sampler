@@ -31,7 +31,8 @@ def geojson_features_generator(
         attributes: dict[str, Literal["string", "integer", "float"]],
         timeseries_attributes: dict[str, Literal["string", "integer", "float"]] | None = None,
         timeseries_step: DatePeriod | None = None,
-        time_series_range: tuple[str, str] | None = None
+        time_series_range: tuple[str, str] | None = None,
+        timeseries_divider: str = "_:_"
         ) -> Generator[dict, None, None]:
     
     """
